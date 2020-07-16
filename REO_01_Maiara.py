@@ -8,7 +8,9 @@
 # REO 01 - LISTA DE EXERCÍCIOS
 import numpy as np
 import time
-
+import matplotlib.pyplot as plt
+import os
+import math
 print('EXERCÍCIO 01')
 print('a) Declare os valores 43.5,150.30,17,28,35,79,20,99.07,15 como um array numpy.')
 x = np.array([43.5, 150.30, 17, 28, 35, 79, 20, 99.07, 15])
@@ -64,7 +66,6 @@ print('_________________________________________________________________________
 
 print('g) Crie uma estrutura de repetição usando o for para apresentar cada valor e a sua '
       'respectiva posição durante as iterações.')
-
 print('Vetor x: '+str(x))
 print('Número de elementos de x: ', len(x))
 it = 0
@@ -114,6 +115,9 @@ print('k) Concatene o vetor da letra a com o vetor da letra j.')
 x7 = np.concatenate((x, x6_))
 print('O novo vetor é: '+ str(x7))
 print('_______________________________________________________________________________________________________________')
+
+########################################################################################################################
+########################################################################################################################
 
 print('EXERCÍCIO 02')
 print('a) Declare a matriz abaixo com a biblioteca numpy.')
@@ -181,13 +185,10 @@ print('O genótipos que possuem nota de severidade <= a 3 e peso de 100 graos >=
 print('_______________________________________________________________________________________________________________')
 ## resposta: genotipos 1,4,5 e 7
 
-
 print('h) Crie uma estrutura de repetição com uso do for (loop) para apresentar na tela cada uma das posições da'
       ' matriz e o seu respectivo valor. Utilize um iterador para mostrar ao usuário quantas vezes está sendo repetido.'
       'Apresente a seguinte mensagem a cada iteração "Na linha X e na coluna Y ocorre o valor: Z". Nesta estrutura,'
       ' crie uma lista que armazene os genótipos com peso de 100 grãos igual ou superior a 25.')
-import numpy as np
-import time
 matriz = np.array([[1,3,22],
                    [2,8,18],
                    [3,4,22],
@@ -216,15 +217,18 @@ for i in np.arange(0, nrow, 1): #for pra acessar as linhas
 print('Os genótipos com peso de 100 grãos igual ou superior a 25 são: ' + str(matriz_zero[:,0]))
 print('_______________________________________________________________________________________________________________')
 
+########################################################################################################################
+########################################################################################################################
+
 print('EXERCÍCIO 03')
 print('a) Crie uma função em um arquivo externo (outro arquivo .py) para calcular a média e '
       'a variância amostral um vetor qualquer, baseada em um loop (for).')
 ## arquivo REO1_3a.py
 print('_______________________________________________________________________________________________________________')
+
 print('b) Simule três arrays com a biblioteca numpy de 10, 100, e 1000 valores e com distribuição normal '
       'com média 100 e variância 2500. Pesquise na documentação do numpy por funções de simulação.')
 mu = 100
-import math
 sigma = math.sqrt(2500)
 array1 = np.random.normal(mu, sigma, 10)
 print('Simulação 1: ' +str(array1))
@@ -232,12 +236,9 @@ array2 = np.random.normal(mu, sigma, 100)
 print('Simulação 2: ' + str(array2))
 array3 = np.random.normal(mu, sigma, 1000)
 print('Simulação 3: ' + str(array3))
-
 print('_______________________________________________________________________________________________________________')
-print('c) Utilize a função criada na letra a para obter as médias e variâncias dos vetores simulados na letra b.')
 
-## BIBLIOTECA NUMPY
-import numpy as np
+print('c) Utilize a função criada na letra a para obter as médias e variâncias dos vetores simulados na letra b.')
 
 print('FUNÇÃO PARA CALCULO DA MEDIA')
 from REO1_3a_Maiara import media
@@ -254,7 +255,6 @@ print('_________________________________________________________________________
 
 print('FUNÇÃO PARA CALCULO DE VARIÂNCIA')
 from REO1_3a_Maiara import variance
-
 print('O vetor obtido na simulação 1 é: ' + str(array1))
 var_array1 = variance(array1)
 print('A variância do vetor 1 é ' + str(var_array1))
@@ -265,15 +265,11 @@ print('A variância do vetor 3 é ' + str(var_array3))
 print('_______________________________________________________________________________________________________________')
 
 print('d) Crie histogramas com a biblioteca matplotlib dos vetores simulados com valores de 10, 100, 1000 e 100000.')
-
-# array de n=10000
 array4 = np.random.normal(mu, sigma, 10000)
 from REO1_3a_Maiara import media
 from REO1_3a_Maiara import variance
 media7 = media(array4)
 var_array4 = variance(array4)
-
-import matplotlib.pyplot as plt
 
 fig, axes = plt.subplots(2, 2) #nrow=2, ncol=2 >> total = 4 graficos
 ax0, ax1, ax2, ax3 = axes.flatten() #ordem para posicionar os graficos;
@@ -282,35 +278,36 @@ ax0.hist(array1, 10, density=1, color='midnightblue')
 plt.xlabel('Valores')
 plt.ylabel('Frequência')
 ax0.set_title('Histograma, $\mu=100$, $\sigma=50$, n = 10',fontsize=10)
+
 ax1.hist(array2, 50, density=1, color='navy')
 plt.xlabel('Valores')
 plt.ylabel('Frequência')
 ax1.set_title('n = 100', fontsize=10)
 ax2.hist(array3, 100, density=1, color='darkblue')
+
 plt.xlabel('Valores')
 plt.ylabel('Frequência')
 ax2.set_title('n = 1000',fontsize=10)
 ax3.hist(array4, 500, density=1, color='mediumblue')
+
 plt.xlabel('Valores')
 plt.ylabel('Frequencia')
 ax3.set_title('n = 10000', fontsize=10)
 plt.show() #visualização do grafico;
 
-#Salvar grafico
-import os
+#Salvando o grafico
 nome = 'histograma'
 fig.savefig((nome+'.png'), bbox_inches="tight")
 os.startfile(nome+'.png')
-
 print('_______________________________________________________________________________________________________________')
-print('EXERCÍCIO 04')
 
+########################################################################################################################
+########################################################################################################################
+
+print('EXERCÍCIO 04')
 print('a) O arquivo dados.txt contém a avaliação de genótipos (primeira coluna) em repetições (segunda coluna) quanto '
       'a cinco variáveis (terceira coluna em diante). Portanto, carregue o arquivo dados.txt com a biblioteca numpy, '
       'apresente os dados e obtenha as informações de dimensão desta matriz.')
-import numpy as np
-import matplotlib.pyplot as plt
-import os
 
 dados = np.loadtxt('dados.txt') #carregando os dados
 print(dados) #apresentando os dados
@@ -321,13 +318,13 @@ print('_________________________________________________________________________
 print('b) Pesquise sobre as funções np.unique e np.where da biblioteca numpy')
 #para pesquisar sobre a utilização de funções é possível usar o comando 'help'
 help(np.unique) #encontra um elemento unico dentro de um vetor/matriz
-print('---------------------------------------------------------------------------------------------------------------')
+
 help(np.where) #retorna os elementos de um vetor/matriz dependendo da condição estabelecida
 print('_______________________________________________________________________________________________________________')
 
 print('c) Obtenha de forma automática os genótipos e quantas repetições foram avaliadas.')
 #genotipos = primeira coluna; repetições = segunda coluna;
-print('Os genotipos avaliados foram: ' + str(np.unique(dados[:,0])) +
+print('Os genotipos avaliados foram: ' + str(np.unique(dados[:,0])) + 
       ' e o número de repetiçoes avaliadas foi '+ str(max(dados[:,1])))
 print('_______________________________________________________________________________________________________________')
 
@@ -342,7 +339,6 @@ matriz_zeros = np.zeros((10,5)) # criando uma matriz em branco, com nrow da subm
 nrow,ncol = np.shape(matriz_zeros)
 print('Linhas: ',nrow) # 10 = 10gen
 print('Colunas: ', ncol) # 5 colunas
-import time
 count = 0
 for i in np.arange(0, len(np.unique(submatriz[:,0])), 1):
     count = count + 1
@@ -361,8 +357,9 @@ for i in np.arange(0, len(np.unique(submatriz[:,0])), 1):
     matriz_zeros[i,4] = np.var((submatriz[submatriz[:,0] == i+1])[:,-1])
 print(matriz_zeros)
 
-#salvando
-np.savetxt('resultados4e.txt',matriz_zeros, '%2.2f') ## %2 = give the float 2 columns total, and 2f = display 2 positions after the radix point"
+#salvando como .txt
+np.savetxt('resultados4e.txt',matriz_zeros, '%2.2f') ## %2 = give the float 2 columns total, 
+#and 2f = display 2 positions after the radix point"
 print('_______________________________________________________________________________________________________________')
 
 print('f) Obtenha os genótipos que possuem média (médias das repetições) igual ou superior a 500 da matriz '
@@ -371,11 +368,10 @@ bool = np.where(matriz_zeros[:,3] >= 500) #vetor booleano - retorna T or F, com 
 print('Posições dos genótipos com média maior que 500: ', str(bool[0]))
 media_maior_500 = matriz_zeros[:,0][bool]
 print('Genótipos com média maior que 500 são: ', str(media_maior_500))
-
 print('_______________________________________________________________________________________________________________')
 
 print('g) Apresente os seguintes graficos:')
-print('i. Médias dos genótipos para cada variável. Utilizar o comando plt.subplot para mostrar mais de'
+print('1. Médias dos genótipos para cada variável. Utilizar o comando plt.subplot para mostrar mais de'
       ' um grafico por figura')
 matrix = np.zeros((10,6)) # criando uma matriz em branco, com 10 linhas (1/genotipo) e ncol= 6 (gen + 5 variaveis resposta)
 count = 0
@@ -387,10 +383,7 @@ for i in np.arange(0, len(np.unique(dados[:,0])), 1): ## start = 0; stop = taman
     matrix[i,3] = np.mean((dados[dados[:, 0] == i + 1])[:,4])
     matrix[i,4] = np.mean((dados[dados[:, 0] == i + 1])[:,5])
     matrix[i,5] = np.mean((dados[dados[:, 0] == i + 1])[:,6])
-
 print(matrix)
-## graficos
-import matplotlib.pyplot as plt
 
 plt.figure('Médias dos genótipos para as variáveis')
 plt.subplot(2,3,1) # 2x3 = 6 graficos;
@@ -398,21 +391,25 @@ plt.bar(matrix[:, 0], matrix[:,1], color="firebrick")
 plt.title('Variável 1', fontsize=12)
 plt.ylabel("Media")
 plt.xlabel('Genótipos')
+
 plt.subplot(2, 3, 2)
 plt.bar(matrix[:, 0], matrix[:,2], color = 'firebrick')
 plt.title('Variável 2', fontsize=12)
 plt.ylabel("Media")
 plt.xlabel('Genótipos')
+
 plt.subplot(2, 3, 3)
 plt.bar(matrix[:, 0], matrix[:,3], color = 'firebrick')
 plt.title('Variável 3', fontsize=12)
 plt.ylabel("Media")
 plt.xlabel('Genótipos')
+
 plt.subplot(2, 3, 4)
 plt.bar(matrix[:, 0], matrix[:,4], color = 'firebrick')
 plt.title('Variável 4', fontsize=12)
 plt.ylabel("Media")
 plt.xlabel('Genótipos')
+
 plt.subplot(2, 3, 5)
 plt.bar(matrix[:, 0], matrix[:,5], color = 'firebrick')
 plt.title('Variável 5', fontsize=12)
@@ -421,7 +418,7 @@ plt.xlabel('Genótipos')
 plt.subplots_adjust(wspace=0.5, hspace=0.5)
 plt.show()
 
-print('ii. Disperão 2D da médias dos genótipos (Utilizar as três primeiras variáveis). No eixo X uma variável'
+print('2. Disperão 2D da médias dos genótipos (Utilizar as três primeiras variáveis). No eixo X uma variável'
       ' e no eixo Y outra.') # col0 = genotipo; col1= v1; col2=v2; col3 = v3
 
 color = ['black','blue','red','green','yellow','pink','cyan','orange','darkviolet','slategray']
@@ -448,3 +445,6 @@ plt.ylabel('Variavel 3')
 plt.legend()
 plt.show() #permite a visualização do grafico;
 print('_______________________________________________________________________________________________________________')
+
+########################################################################################################################
+########################################################################################################################
